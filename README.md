@@ -2,7 +2,7 @@
 
 ## Introduction
 
-OTP Package for Laravel using class based system
+OTP Package for Laravel using class based system. Every Otp is a class that does something. For example, an `EmailVerificationOtp` which will mark the account as verified.
 
 ## Installation
 
@@ -26,13 +26,13 @@ php artisan vendor:publish --provider="Sadiqsalau\LaravelOtp\OtpServiceProvider"
 php artisan make:otp {name}
 ```
 
-A new Otp class will be generated into the `app/Otp` folder. e.g
+A new Otp class will be generated into the `app/Otp` directory. e.g
 
 ```bash
 php artisan make:otp UserRegistrationOtp
 ```
 
-Otp must implement the `process` method which will be called after verification.
+Every Otp must implement the `process` method which will be called after verification. There the Otp can perform the necessary action and return any result.
 
 ```php
 <?php
@@ -59,6 +59,8 @@ class UserRegistrationOtp implements Otp
      */
     public function process()
     {
+        //...
+
         return $this->username;
     }
 }
@@ -79,9 +81,9 @@ Otp::send(Otp $otp, $notifiable)
 - `$notifiable`: AnonymousNotifiable or Notifiable instance.
 
 ```php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
 use App\Otp\UserRegistrationOtp;
 use Illuminate\Support\Facades\Notification;
+use Sadiqsalau\LaravelOtp\Facades\Otp;
 
 Route::post('/register', function(Request $request){
     //...
@@ -120,13 +122,14 @@ Returns
 ['status' => Otp::OTP_PROCESSED, 'result'=>[]] // Success: otp.processed
 ```
 
-The `result` key contains the returned value of the `process` method of any Otp class
+The `result` key contains the returned value of the `process` method of the Otp class
 
 ```php
 use Sadiqsalau\LaravelOtp\Facades\Otp;
 
 Route::get('/otp/verify', function (Request $request) {
     //...
+
     $otp = Otp::attempt($request->code);
 
     if($otp['status'] != Otp::OTP_PROCESSED)
@@ -163,9 +166,75 @@ Route::get('/otp/resend', function () {
 });
 ```
 
-## TODO
+You should rate limit your resend route.
 
-Update README
+## Config
+
+Config file can be found at `config/otp.php` after publishing the package
+
+- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `Sadiqsalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `SessionStore`
+
+```php
+use Sadiqsalau\LaravelOtp\Stores\SessionStore;
+use Sadiqsalau\LaravelOtp\Stores\CacheStore;
+
+//...
+'store' => SessionStore::class
+```
+
+- `store_key` - Key used by the store to retrieve the Otp
+- `format` - Format of generated Otp code (`numeric` | `alphanumeric` | `alpha`)
+- `length` - Length of generated Otp code
+- `expires` - Number of minutes before Otp expires,
+- `notification` - Custom notification class to use, default is `Sadiqsalau\LaravelOtp\OtpNotification`
+
+## Translations
+
+The package doesn't provide translations out of the box, but here is an example.
+Create a new translation file: `lang/en/otp.php`
+
+```php
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | OTP Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the OTP broker
+    |
+    */
+
+    'sent'          => 'We have sent your OTP code!',
+    'empty'         => 'No OTP!',
+    'expired'       => 'Expired OTP!',
+    'mismatched'    => 'Mismatched OTP code!',
+    'processed'     => 'OTP was successfully processed!'
+];
+
+```
+
+Then translate the status
+
+```php
+return __($otp['status'])
+```
+
+## API
+
+- `Otp::send(OtpInterface $otp, mixed $notifiable)` - Send Otp to a notifiable
+
+- `Otp::attempt(string $code)` - Attempt Otp code, returns the result of calling the `process` method of the Otp
+
+- `Otp::update()` - Resend and update current Otp
+
+- `Otp::clear()` - Clear Otp from store
+
+- `Otp::useGenerator(callable $callback)` - Set custom generator to use, generator will be called with `$format` and `$length`
+
+- `Otp::generateOtpCode($format, $length)` - Generates the Otp code
 
 ## Contribution
 
