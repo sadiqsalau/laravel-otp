@@ -5,6 +5,7 @@ namespace SadiqSalau\LaravelOtp\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static static identifier(mixed $identifier)
  * @method static array send(\SadiqSalau\LaravelOtp\Contracts\OtpInterface $otp, mixed $notifiable)
  * @method static array attempt(string $code)
  * @method static array update()
