@@ -166,7 +166,25 @@ Route::get('/otp/resend', function () {
 });
 ```
 
-You should rate limit your resend route.
+### Setting Identifier
+
+The cache store uses the request's IP address to uniquely identify the Otp, you may change this by calling the `identifier` method of the Otp facade.
+
+```php
+<?php
+use SadiqSalau\LaravelOtp\Facades\Otp;
+
+Otp::identifier($request->email)->send(...);
+```
+
+```php
+<?php
+use SadiqSalau\LaravelOtp\Facades\Otp;
+
+Otp::identifier($identifier)->send(...);
+Otp::identifier($identifier)->attempt(...);
+Otp::identifier($identifier)->update();
+```
 
 ## Config
 
