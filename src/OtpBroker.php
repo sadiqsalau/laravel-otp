@@ -199,4 +199,18 @@ class OtpBroker implements OtpBrokerInterface
     {
         return Randomize::chars($length)->{$format}()->generate();
     }
+
+    /**
+     * Dynamically call the store instance.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return static
+     */
+    public function __call($method, $parameters)
+    {
+        $this->store->{$method}(...$parameters);
+
+        return $this;
+    }
 }
