@@ -232,6 +232,8 @@ return __($otp['status'])
 
 - `Otp::clear()` - Clear Otp from store
 
+- `Otp::identifier(mixed $identifier)` - Override identifier of Otp store
+
 - `Otp::useGenerator(callable $callback)` - Set custom generator to use, generator will be called with `$format` and `$length`
 
 - `Otp::generateOtpCode($format, $length)` - Generates the Otp code
