@@ -1,10 +1,10 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp\Stores;
+namespace SadiqSalau\LaravelOtp\Stores;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Sadiqsalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
+use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
 
 
 class CacheStore implements Store

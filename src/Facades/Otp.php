@@ -1,11 +1,11 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp\Facades;
+namespace SadiqSalau\LaravelOtp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array send(\Sadiqsalau\LaravelOtp\Contracts\OtpInterface $otp, mixed $notifiable)
+ * @method static array send(\SadiqSalau\LaravelOtp\Contracts\OtpInterface $otp, mixed $notifiable)
  * @method static array attempt(string $code)
  * @method static array update()
  * @method static static clear()

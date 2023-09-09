@@ -1,11 +1,11 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp;
+namespace SadiqSalau\LaravelOtp;
 
-use Sadiqsalau\LaravelOtp\Contracts\OtpBrokerInterface;
-use Sadiqsalau\LaravelOtp\Contracts\OtpInterface as Otp;
-use Sadiqsalau\LaravelOtp\Contracts\OtpStoreInterface as OtpStore;
-use Sadiqsalau\LaravelOtp\OtpNotification;
+use SadiqSalau\LaravelOtp\Contracts\OtpBrokerInterface;
+use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
+use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as OtpStore;
+use SadiqSalau\LaravelOtp\OtpNotification;
 use HiFolks\RandoPhp\Randomize;
 
 class OtpBroker implements OtpBrokerInterface

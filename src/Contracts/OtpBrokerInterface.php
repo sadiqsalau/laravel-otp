@@ -1,8 +1,8 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp\Contracts;
+namespace SadiqSalau\LaravelOtp\Contracts;
 
-use Sadiqsalau\LaravelOtp\Contracts\OtpInterface as Otp;
+use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
 interface OtpBrokerInterface
 {

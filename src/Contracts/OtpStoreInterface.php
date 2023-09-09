@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp\Contracts;
+namespace SadiqSalau\LaravelOtp\Contracts;
 
 interface OtpStoreInterface
 {

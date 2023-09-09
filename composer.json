@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Sadiqsalau\\LaravelOtp\\": "src/"
+      "SadiqSalau\\LaravelOtp\\": "src/"
     }
   },
   "authors": [
@@ -20,7 +20,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Sadiqsalau\\LaravelOtp\\OtpServiceProvider"
+        "SadiqSalau\\LaravelOtp\\OtpServiceProvider"
       ]
     }
   }

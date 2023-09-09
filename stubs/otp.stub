@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Sadiqsalau\LaravelOtp\Contracts\OtpInterface as Otp;
+use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
 class {{ class }} implements Otp
 {

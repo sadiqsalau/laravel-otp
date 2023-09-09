@@ -1,7 +1,7 @@
 <?php
 
-use Sadiqsalau\LaravelOtp\Stores\SessionStore;
-use Sadiqsalau\LaravelOtp\Stores\CacheStore;
+use SadiqSalau\LaravelOtp\Stores\SessionStore;
+use SadiqSalau\LaravelOtp\Stores\CacheStore;
 
 return [
     /*

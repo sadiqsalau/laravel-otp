@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp;
+namespace SadiqSalau\LaravelOtp;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;

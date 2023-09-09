@@ -1,9 +1,9 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp\Stores;
+namespace SadiqSalau\LaravelOtp\Stores;
 
 use Illuminate\Support\Facades\Session;
-use Sadiqsalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
+use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
 
 
 class SessionStore implements Store

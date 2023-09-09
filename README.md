@@ -15,7 +15,7 @@ composer require sadiqsalau/laravel-otp
 Publish config file
 
 ```bash
-php artisan vendor:publish --provider="Sadiqsalau\LaravelOtp\OtpServiceProvider"
+php artisan vendor:publish --provider="SadiqSalau\LaravelOtp\OtpServiceProvider"
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ Every Otp must implement the `process` method which will be called after verific
 
 namespace App\Otp;
 
-use Sadiqsalau\LaravelOtp\Contracts\OtpInterface as Otp;
+use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
 class UserRegistrationOtp implements Otp
 {
@@ -71,8 +71,8 @@ class UserRegistrationOtp implements Otp
 
 ```php
 <?php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
-use Sadiqsalau\LaravelOtp\Contracts\OtpInterface as Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
 Otp::send(Otp $otp, $notifiable)
 ```
@@ -83,7 +83,7 @@ Otp::send(Otp $otp, $notifiable)
 ```php
 use App\Otp\UserRegistrationOtp;
 use Illuminate\Support\Facades\Notification;
-use Sadiqsalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Route::post('/register', function(Request $request){
     //...
@@ -106,7 +106,7 @@ Returns
 
 ```php
 <?php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Otp::attempt(string $code)
 ```
@@ -125,7 +125,7 @@ Returns
 The `result` key contains the returned value of the `process` method of the Otp class
 
 ```php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Route::get('/otp/verify', function (Request $request) {
     //...
@@ -146,7 +146,7 @@ Route::get('/otp/verify', function (Request $request) {
 
 ```php
 <?php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Otp::update();
 ```
@@ -159,7 +159,7 @@ Returns
 ```
 
 ```php
-use Sadiqsalau\LaravelOtp\Facades\Otp;
+use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Route::get('/otp/resend', function () {
     return Otp::update();
@@ -172,11 +172,11 @@ You should rate limit your resend route.
 
 Config file can be found at `config/otp.php` after publishing the package
 
-- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `Sadiqsalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `SessionStore`
+- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `SessionStore`
 
 ```php
-use Sadiqsalau\LaravelOtp\Stores\SessionStore;
-use Sadiqsalau\LaravelOtp\Stores\CacheStore;
+use SadiqSalau\LaravelOtp\Stores\SessionStore;
+use SadiqSalau\LaravelOtp\Stores\CacheStore;
 
 //...
 'store' => SessionStore::class
@@ -186,7 +186,7 @@ use Sadiqsalau\LaravelOtp\Stores\CacheStore;
 - `format` - Format of generated Otp code (`numeric` | `alphanumeric` | `alpha`)
 - `length` - Length of generated Otp code
 - `expires` - Number of minutes before Otp expires,
-- `notification` - Custom notification class to use, default is `Sadiqsalau\LaravelOtp\OtpNotification`
+- `notification` - Custom notification class to use, default is `SadiqSalau\LaravelOtp\OtpNotification`
 
 ## Translations
 

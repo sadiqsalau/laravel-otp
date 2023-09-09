@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp;
+namespace SadiqSalau\LaravelOtp;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Sadiqsalau\LaravelOtp;
+namespace SadiqSalau\LaravelOtp;
 
 use Illuminate\Support\ServiceProvider;
-use Sadiqsalau\LaravelOtp\OtpMakeCommand;
+use SadiqSalau\LaravelOtp\OtpMakeCommand;
 
 class OtpServiceProvider extends ServiceProvider
 {
