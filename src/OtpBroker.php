@@ -201,15 +201,16 @@ class OtpBroker implements OtpBrokerInterface
     }
 
     /**
-     * Dynamically call the store instance.
+     * Set store identifier
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param  mixed  $identifier
      * @return static
      */
-    public function __call($method, $parameters)
+    public function identifier($identifier)
     {
-        $this->store->{$method}(...$parameters);
+        if (method_exists($this->store, 'identifier')) {
+            call_user_func([$this->store, 'identifier'], $identifier);
+        }
 
         return $this;
     }
