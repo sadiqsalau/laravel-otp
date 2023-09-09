@@ -73,7 +73,7 @@ class OtpBroker implements OtpBrokerInterface
                 $data['otp'],
                 $data['notifiable']
             ) :
-            ['status' => static::EMPTY_OTP];
+            ['status' => static::OTP_EMPTY];
     }
 
     /**
@@ -86,7 +86,7 @@ class OtpBroker implements OtpBrokerInterface
     {
         // Otp exists?
         if (!$data = $this->store->retrieve())
-            return ['status' => static::EMPTY_OTP];
+            return ['status' => static::OTP_EMPTY];
 
 
         // Has it expired?
@@ -95,12 +95,12 @@ class OtpBroker implements OtpBrokerInterface
             // Clear the OTP
             $this->store->clear();
 
-            return ['status' => static::EXPIRED_OTP];
+            return ['status' => static::OTP_EXPIRED];
         }
 
         // Is the code correct?
         else if ($data['code'] != $code)
-            return ['status' => static::MISMATCHED_CODE];
+            return ['status' => static::OTP_MISMATCHED];
 
         // Process the Otp
         else {

@@ -25,21 +25,21 @@ interface OtpBrokerInterface
      *
      * @var string
      */
-    const EMPTY_OTP = 'otp.empty';
+    const OTP_EMPTY = 'otp.empty';
 
     /**
      * Constant representing an expired otp.
      *
      * @var string
      */
-    const EXPIRED_OTP = 'otp.expired';
+    const OTP_EXPIRED = 'otp.expired';
 
     /**
      * Constant representing a mismatched code.
      *
      * @var string
      */
-    const MISMATCHED_CODE = 'otp.mismatched';
+    const OTP_MISMATCHED = 'otp.mismatched';
 
     /**
      * Send Otp notification

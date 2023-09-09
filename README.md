@@ -116,9 +116,9 @@ Otp::attempt(string $code)
 Returns
 
 ```php
-['status' => Otp::EMPTY_OTP]        // Error: otp.empty
-['status' => Otp::EXPIRED_OTP]      // Error: otp.expired
-['status' => Otp::MISMATCHED_CODE]  // Error: otp.mismatched
+['status' => Otp::OTP_EMPTY]        // Error: otp.empty
+['status' => Otp::OTP_EXPIRED]      // Error: otp.expired
+['status' => Otp::OTP_MISMATCHED]  // Error: otp.mismatched
 ['status' => Otp::OTP_PROCESSED, 'result'=>[]] // Success: otp.processed
 ```
 
@@ -154,7 +154,7 @@ Otp::update();
 Returns
 
 ```php
-['status' => Otp::EMPTY_OTP]    // Error: otp.empty
+['status' => Otp::OTP_EMPTY]    // Error: otp.empty
 ['status' => Otp::OTP_SENT]     // Success: otp.sent
 ```
 
