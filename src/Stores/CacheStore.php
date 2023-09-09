@@ -10,11 +10,18 @@ use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
 class CacheStore implements Store
 {
     /**
-     * Otp cache key
+     * Store key
      *
      * @var string
      */
     protected string $key;
+
+    /**
+     * Store identifier
+     *
+     * @var string
+     */
+    protected string $identifier;
 
     /**
      * Instantiate Cache store
@@ -23,11 +30,12 @@ class CacheStore implements Store
      */
     public function __construct(Request $request)
     {
-        $this->key = config('otp.store_key') . '-' . md5($request->ip());
+        $this->key = config('otp.store_key');
+        $this->identifier = md5($request->ip());
     }
 
     /**
-     * Store Otp in cache
+     * Put Otp in cache
      *
      * @param array $otp
      * @return void
@@ -35,7 +43,7 @@ class CacheStore implements Store
     public function put($otp)
     {
         Cache::put(
-            $this->key,
+            $this->getCacheKey(),
             $otp,
             $otp['expires']
         );
@@ -48,7 +56,7 @@ class CacheStore implements Store
      */
     public function retrieve()
     {
-        return Cache::get($this->key) ?: null;
+        return Cache::get($this->getCacheKey()) ?: null;
     }
 
     /**
@@ -58,6 +66,28 @@ class CacheStore implements Store
      */
     public function clear()
     {
-        Cache::forget($this->key);
+        Cache::forget($this->getCacheKey());
+    }
+
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     * @return void
+     */
+    public function identifier($identifier)
+    {
+        $this->identifier = md5($identifier);
+    }
+
+    /**
+     * Return the cache key
+     *
+     * @return string
+     */
+    protected function getCacheKey()
+    {
+        return $this->key . '_' . $this->identifier;
     }
 }
