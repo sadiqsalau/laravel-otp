@@ -1,7 +1,7 @@
 <?php
 
-use SadiqSalau\LaravelOtp\Stores\SessionStore;
 use SadiqSalau\LaravelOtp\Stores\CacheStore;
+use SadiqSalau\LaravelOtp\Stores\SessionStore;
 
 return [
     /*
@@ -12,7 +12,7 @@ return [
     | Store for OTP
     |
     */
-    'store' => SessionStore::class,
+    'store' => CacheStore::class,
 
     /*
     |--------------------------------------------------------------------------

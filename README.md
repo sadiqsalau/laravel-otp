@@ -172,14 +172,14 @@ You should rate limit your resend route.
 
 Config file can be found at `config/otp.php` after publishing the package
 
-- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `SessionStore`
+- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `CacheStore`
 
 ```php
-use SadiqSalau\LaravelOtp\Stores\SessionStore;
 use SadiqSalau\LaravelOtp\Stores\CacheStore;
+use SadiqSalau\LaravelOtp\Stores\SessionStore;
 
 //...
-'store' => SessionStore::class
+'store' => CacheStore::class
 ```
 
 - `store_key` - Key used by the store to retrieve the Otp
