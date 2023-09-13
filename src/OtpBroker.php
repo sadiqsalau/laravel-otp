@@ -2,14 +2,21 @@
 
 namespace SadiqSalau\LaravelOtp;
 
+use HiFolks\RandoPhp\Randomize;
 use SadiqSalau\LaravelOtp\Contracts\OtpBrokerInterface;
 use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
-use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as OtpStore;
 use SadiqSalau\LaravelOtp\OtpNotification;
-use HiFolks\RandoPhp\Randomize;
+use SadiqSalau\LaravelOtp\OtpStore;
 
 class OtpBroker implements OtpBrokerInterface
 {
+    /**
+     * Custom Otp generator
+     *
+     * @var callable|null
+     */
+    protected static $customGenerator;
+
     /**
      * Instantiates the broker
      *
@@ -20,12 +27,6 @@ class OtpBroker implements OtpBrokerInterface
     ) {
     }
 
-    /**
-     * Custom Otp generator
-     *
-     * @var callable|null
-     */
-    protected $customGenerator;
 
     /**
      * Send Otp notification
