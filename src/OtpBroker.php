@@ -155,15 +155,15 @@ class OtpBroker implements OtpBrokerInterface
      * @param int $length
      * @return string
      */
-    public function generateOtpCode(
+    public static function generateOtpCode(
         $format,
         $length
     ) {
-        return $this->customGenerator ? call_user_func(
-            $this->customGenerator,
+        return static::$customGenerator ? call_user_func(
+            static::$customGenerator,
             $format,
             $length
-        ) : $this->defaultGenerator($format, $length);
+        ) : static::defaultGenerator($format, $length);
     }
 
     /**
@@ -172,13 +172,11 @@ class OtpBroker implements OtpBrokerInterface
      * @param callable $callback
      * @return static
      */
-    public function useGenerator($callback)
+    public static function useGenerator($callback)
     {
         if (is_callable($callback)) {
-            $this->customGenerator = $callback;
+            static::$customGenerator = $callback;
         }
-
-        return $this;
     }
 
 
