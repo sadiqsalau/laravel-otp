@@ -136,6 +136,19 @@ class OtpBroker implements OtpBrokerInterface
     }
 
     /**
+     * Set store identifier
+     *
+     * @param  string  $identifier
+     * @return static
+     */
+    public function identifier($identifier)
+    {
+        $this->store->identifier($identifier);
+
+        return $this;
+    }
+
+    /**
      * Generates Otp code
      *
      * @param string $format
