@@ -37,29 +37,23 @@ class OtpBroker implements OtpBrokerInterface
      */
     public function send(Otp $otp, $notifiable)
     {
-        $this->store->put(
-            $data = $this->createOtpData(
-                $otp,
-                $notifiable
-            )
+        /** Notification class to use */
+        $notification = config('otp.notification') ?: OtpNotification::class;
+
+        $data = $this->createOtpData(
+            $otp,
+            $notifiable
         );
 
-
-        return with(
-            config('otp.notification') ?:
-                OtpNotification::class,
-
-            function ($notification)
-            use ($data) {
-
-                // Send notification
-                $data['notifiable']->notify(
-                    new $notification($data['code'])
-                );
-
-                return ['status' => static::OTP_SENT];
-            }
+        // Send notification
+        $notifiable->notify(
+            new $notification($data['code'])
         );
+
+        // Store otp
+        $this->store->put($data);
+
+        return ['status' => static::OTP_SENT];
     }
 
     /**
