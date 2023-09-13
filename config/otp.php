@@ -39,5 +39,5 @@ return [
     | Notification to use for OTP
     |
     */
-    'notification' => null,
+    'notification' => \SadiqSalau\LaravelOtp\OtpNotification::class,
 ];
