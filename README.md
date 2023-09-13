@@ -181,14 +181,15 @@ Returns
 ```php
 use SadiqSalau\LaravelOtp\Facades\Otp;
 
-Route::get('/otp/resend', function () {
-    return Otp::update();
+Route::post('/otp/resend', function (Request $request) {
+    //...
+    return Otp::identifier($request->email)->update();
 });
 ```
 
 ### Setting Identifier
 
-The cache store uses the request's IP address to uniquely identify the Otp, you may change this by calling the `identifier` method of the Otp facade.
+Every method of the OTP class requires setting an identifier to uniquely identify the Otp.
 
 ```php
 <?php
