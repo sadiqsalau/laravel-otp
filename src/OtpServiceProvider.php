@@ -4,6 +4,7 @@ namespace SadiqSalau\LaravelOtp;
 
 use Illuminate\Support\ServiceProvider;
 use SadiqSalau\LaravelOtp\OtpMakeCommand;
+use SadiqSalau\LaravelOtp\OtpBroker;
 
 class OtpServiceProvider extends ServiceProvider
 {
@@ -12,16 +13,16 @@ class OtpServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/otp.php',
-            'otp'
-        );
-
-        $this->app->singleton('otp', function ($app) {
-            return new OtpBroker(
-                $app->make($app['config']['otp.store'])
+        /** Merge configurations */
+        if (!app()->configurationIsCached()) {
+            $this->mergeConfigFrom(
+                __DIR__ . '/../config/otp.php',
+                'otp'
             );
-        });
+        }
+
+        /** Bind otp broker */
+        app()->bind('otp', OtpBroker::class);
     }
 
     /**
@@ -29,11 +30,14 @@ class OtpServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/../config/otp.php' => config_path('otp.php'),
-        ], 'otp');
+        if (app()->runningInConsole()) {
 
-        if ($this->app->runningInConsole()) {
+            /** Publish config */
+            $this->publishes([
+                __DIR__ . '/../config/otp.php' => config_path('otp.php'),
+            ], 'otp');
+
+            /** Register otp make command */
             $this->commands([
                 OtpMakeCommand::class,
             ]);
