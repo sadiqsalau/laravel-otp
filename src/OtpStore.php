@@ -1,20 +1,19 @@
 <?php
 
-namespace SadiqSalau\LaravelOtp\Stores;
+namespace SadiqSalau\LaravelOtp;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface as Store;
 
 
-class CacheStore implements Store
+class OtpStore implements Store
 {
     /**
      * Store key
      *
      * @var string
      */
-    protected string $key;
+    const STORE_KEY = 'otp';
 
     /**
      * Store identifier
@@ -24,14 +23,20 @@ class CacheStore implements Store
     protected string $identifier;
 
     /**
-     * Instantiate Cache store
+     * Set identifier
      *
-     * @param Request $request
+     * @param string $identifier
+     * @return static
+     * @throws \Exception
      */
-    public function __construct(Request $request)
+    public function identifier($identifier)
     {
-        $this->key = config('otp.store_key');
-        $this->identifier = md5($request->ip());
+        if (empty($identifier)) {
+            throw new \Exception("OTP identifier is empty!");
+        }
+        $this->identifier = md5($identifier);
+
+        return $this;
     }
 
     /**
@@ -69,25 +74,17 @@ class CacheStore implements Store
         Cache::forget($this->getCacheKey());
     }
 
-
-    /**
-     * Set identifier
-     *
-     * @param string $identifier
-     * @return void
-     */
-    public function identifier($identifier)
-    {
-        $this->identifier = md5($identifier);
-    }
-
     /**
      * Return the cache key
      *
      * @return string
+     * @throws \Exception
      */
     protected function getCacheKey()
     {
-        return $this->key . '_' . $this->identifier;
+        if (!isset($this->identifier)) {
+            throw new \Exception("No OTP identifier set!");
+        }
+        return static::STORE_KEY . '_' . $this->identifier;
     }
 }
