@@ -41,13 +41,21 @@ namespace App\Otp;
 
 use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\User;
+
 class UserRegistrationOtp implements Otp
 {
     /**
      * Constructs Otp class
      */
     public function __construct(
-        protected $username
+        public string $name,
+        public string $email,
+        public string $password
     ) {
         //
     }
@@ -55,13 +63,25 @@ class UserRegistrationOtp implements Otp
     /**
      * Processes the Otp
      *
-     * @return mixed
+     * @return User
      */
     public function process()
     {
-        //...
+        /** @var User */
+        $user = User::unguarded(function () {
+            return User::create([
+                'name'                  => $this->name,
+                'email'                 => $this->email,
+                'password'              => Hash::make($this->password),
+                'email_verified_at'     => now(),
+            ]);
+        });
 
-        return $this->username;
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return $user;
     }
 }
 
@@ -72,24 +92,25 @@ class UserRegistrationOtp implements Otp
 ```php
 <?php
 use SadiqSalau\LaravelOtp\Facades\Otp;
-use SadiqSalau\LaravelOtp\Contracts\OtpInterface as Otp;
 
-Otp::send(Otp $otp, $notifiable)
+Otp::identifier($identifier)->send($otp, $notifiable);
 ```
 
 - `$otp`: The otp to send.
 - `$notifiable`: AnonymousNotifiable or Notifiable instance.
 
 ```php
-use App\Otp\UserRegistrationOtp;
 use Illuminate\Support\Facades\Notification;
 use SadiqSalau\LaravelOtp\Facades\Otp;
+use App\Otp\UserRegistrationOtp;
 
 Route::post('/register', function(Request $request){
     //...
-    return Otp::send(
+    return Otp::identifier($request->email)->send(
         new UserRegistrationOtp(
-            username: $request->username
+            name: $request->name,
+            email: $request->email,
+            password: $request->password
         ),
         Notification::route('mail', $request->email)
     );
