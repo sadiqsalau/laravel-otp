@@ -100,13 +100,24 @@ Otp::identifier($identifier)->send($otp, $notifiable);
 - `$notifiable`: AnonymousNotifiable or Notifiable instance.
 
 ```php
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+
 use SadiqSalau\LaravelOtp\Facades\Otp;
+
+use App\Models\User;
 use App\Otp\UserRegistrationOtp;
 
 Route::post('/register', function(Request $request){
-    //...
-    return Otp::identifier($request->email)->send(
+    $request->validate([
+        'name'          => ['required', 'string', 'max:255'],
+        'email'         => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        'password'      => ['required',  Rules\Password::defaults()],
+    ]);
+
+    $otp = Otp::identifier($request->email)->send(
         new UserRegistrationOtp(
             name: $request->name,
             email: $request->email,
@@ -114,6 +125,8 @@ Route::post('/register', function(Request $request){
         ),
         Notification::route('mail', $request->email)
     );
+
+    return __($otp['status']);
 });
 ```
 
@@ -145,20 +158,27 @@ Returns
 The `result` key contains the returned value of the `process` method of the Otp class
 
 ```php
+<?php
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 use SadiqSalau\LaravelOtp\Facades\Otp;
 
-Route::get('/otp/verify', function (Request $request) {
-    //...
+Route::post('/otp/verify', function (Request $request) {
+
+    $request->validate([
+        'email'    => ['required', 'string', 'email', 'max:255'],
+        'code'     => ['required', 'string']
+    ]);
 
     $otp = Otp::identifier($request->email)->attempt($request->code);
 
     if($otp['status'] != Otp::OTP_PROCESSED)
     {
-        return __($otp['status']);
+        abort(403, __($otp['status']));
     }
-    else {
-        return $otp['result'];
-    }
+
+    return $otp['result'];
 });
 ```
 
@@ -179,11 +199,25 @@ Returns
 ```
 
 ```php
+<?php
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 use SadiqSalau\LaravelOtp\Facades\Otp;
 
 Route::post('/otp/resend', function (Request $request) {
-    //...
-    return Otp::identifier($request->email)->update();
+
+    $request->validate([
+        'email'    => ['required', 'string', 'email', 'max:255']
+    ]);
+
+    $otp = Otp::identifier($request->email)->update();
+
+    if($otp['status'] != Otp::OTP_SENT)
+    {
+        abort(403, __($otp['status']));
+    }
+    return __($otp['status']);
 });
 ```
 
