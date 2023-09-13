@@ -83,35 +83,21 @@ class OtpBroker implements OtpBrokerInterface
         if (!$data = $this->store->retrieve())
             return ['status' => static::OTP_EMPTY];
 
-
-        // Has it expired?
-        else if (now() > $data['expires']) {
-
-            // Clear the OTP
-            $this->store->clear();
-
-            return ['status' => static::OTP_EXPIRED];
-        }
-
         // Is the code correct?
         else if ($data['code'] != $code)
             return ['status' => static::OTP_MISMATCHED];
 
         // Process the Otp
         else {
-            return with(
-                $data['otp']->process(),
+            $result = $data['otp']->process();
 
-                function ($result) {
+            // Clear the Otp
+            $this->clear();
 
-                    $this->store->clear();
-
-                    return [
-                        'status' => static::OTP_PROCESSED,
-                        'result' => $result
-                    ];
-                }
-            );
+            return [
+                'status' => static::OTP_PROCESSED,
+                'result' => $result
+            ];
         }
     }
 
