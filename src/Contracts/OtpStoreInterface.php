@@ -5,6 +5,14 @@ namespace SadiqSalau\LaravelOtp\Contracts;
 interface OtpStoreInterface
 {
     /**
+     * Set Otp identifier
+     *
+     * @param string $identifier
+     * @return static
+     */
+    public function identifier($identifier);
+
+    /**
      * Store Otp
      *
      * @param array $otp
