@@ -211,20 +211,9 @@ Otp::identifier($identifier)->update();
 
 Config file can be found at `config/otp.php` after publishing the package
 
-- `store` - The store is a class for storing the Otp. The package provides two stores by default. All stores must implement `SadiqSalau\LaravelOtp\Contracts\OtpStoreInterface`. The default store is the `CacheStore`
-
-```php
-use SadiqSalau\LaravelOtp\Stores\CacheStore;
-use SadiqSalau\LaravelOtp\Stores\SessionStore;
-
-//...
-'store' => CacheStore::class
-```
-
-- `store_key` - Key used by the store to retrieve the Otp
-- `format` - Format of generated Otp code (`numeric` | `alphanumeric` | `alpha`)
-- `length` - Length of generated Otp code
-- `expires` - Number of minutes before Otp expires,
+- `format` - Format of generated OTP code (`numeric` | `alphanumeric` | `alpha`)
+- `length` - Length of generated OTP code
+- `expires` - Number of minutes before OTP expires,
 - `notification` - Custom notification class to use, default is `SadiqSalau\LaravelOtp\OtpNotification`
 
 ## Translations
