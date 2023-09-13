@@ -186,24 +186,13 @@ class OtpBroker implements OtpBrokerInterface
      * @param string $format
      * @param int $length
      * @return string
+     * @throws \Exception
      */
-    protected function defaultGenerator($format, $length)
+    protected static function defaultGenerator($format, $length)
     {
-        return Randomize::chars($length)->{$format}()->generate();
-    }
-
-    /**
-     * Set store identifier
-     *
-     * @param  mixed  $identifier
-     * @return static
-     */
-    public function identifier($identifier)
-    {
-        if (method_exists($this->store, 'identifier')) {
-            call_user_func([$this->store, 'identifier'], $identifier);
+        if (!in_array($format, ['numeric', 'alpha', 'alphanumeric'], true)) {
+            throw new \Exception('Unknown OTP code format!');
         }
-
-        return $this;
+        return Randomize::chars($length)->{$format}()->generate();
     }
 }
