@@ -138,7 +138,6 @@ Returns
 
 ```php
 ['status' => Otp::OTP_EMPTY]        // Error: otp.empty
-['status' => Otp::OTP_EXPIRED]      // Error: otp.expired
 ['status' => Otp::OTP_MISMATCHED]  // Error: otp.mismatched
 ['status' => Otp::OTP_PROCESSED, 'result'=>[]] // Success: otp.processed
 ```
