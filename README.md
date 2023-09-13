@@ -237,7 +237,6 @@ return [
 
     'sent'          => 'We have sent your OTP code!',
     'empty'         => 'No OTP!',
-    'expired'       => 'Expired OTP!',
     'mismatched'    => 'Mismatched OTP code!',
     'processed'     => 'OTP was successfully processed!'
 ];
