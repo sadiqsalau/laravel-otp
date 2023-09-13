@@ -150,7 +150,7 @@ use SadiqSalau\LaravelOtp\Facades\Otp;
 Route::get('/otp/verify', function (Request $request) {
     //...
 
-    $otp = Otp::attempt($request->code);
+    $otp = Otp::identifier($request->email)->attempt($request->code);
 
     if($otp['status'] != Otp::OTP_PROCESSED)
     {
@@ -168,7 +168,7 @@ Route::get('/otp/verify', function (Request $request) {
 <?php
 use SadiqSalau\LaravelOtp\Facades\Otp;
 
-Otp::update();
+Otp::identifier($identifier)->update();
 ```
 
 Returns
