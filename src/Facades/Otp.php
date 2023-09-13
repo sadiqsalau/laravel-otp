@@ -5,11 +5,13 @@ namespace SadiqSalau\LaravelOtp\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static static identifier(mixed $identifier)
+ * @method static static identifier(string $identifier)
  * @method static array send(\SadiqSalau\LaravelOtp\Contracts\OtpInterface $otp, mixed $notifiable)
  * @method static array attempt(string $code)
  * @method static array update()
  * @method static static clear()
+ * @method static void useGenerator(callable $callback)
+ * @method static string generateOtpCode(string $format, int $length)
  */
 class Otp extends Facade
 {
@@ -33,13 +35,6 @@ class Otp extends Facade
      * @var string
      */
     const OTP_EMPTY = 'otp.empty';
-
-    /**
-     * Constant representing an expired otp.
-     *
-     * @var string
-     */
-    const OTP_EXPIRED = 'otp.expired';
 
     /**
      * Constant representing a mismatched code.
