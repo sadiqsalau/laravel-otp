@@ -251,19 +251,19 @@ return __($otp['status'])
 
 ## API
 
-- `Otp::send(OtpInterface $otp, mixed $notifiable)` - Send Otp to a notifiable
+- `Otp::identifier(mixed $identifier)` - Set OTP identifier
 
-- `Otp::attempt(string $code)` - Attempt Otp code, returns the result of calling the `process` method of the Otp
+- `Otp::send(OtpInterface $otp, mixed $notifiable)` - Send OTP to a notifiable
 
-- `Otp::update()` - Resend and update current Otp
+- `Otp::attempt(string $code)` - Attempt OTP code, returns the result of calling the `process` method of the OTP
 
-- `Otp::clear()` - Clear Otp from store
+- `Otp::update()` - Resend and update current OTP
 
-- `Otp::identifier(mixed $identifier)` - Override identifier of Otp store
+- `Otp::clear()` - Remove OTP
 
 - `Otp::useGenerator(callable $callback)` - Set custom generator to use, generator will be called with `$format` and `$length`
 
-- `Otp::generateOtpCode($format, $length)` - Generates the Otp code
+- `Otp::generateOtpCode($format, $length)` - Generates the OTP code
 
 ## Contribution
 
