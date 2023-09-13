@@ -129,7 +129,7 @@ Returns
 <?php
 use SadiqSalau\LaravelOtp\Facades\Otp;
 
-Otp::attempt(string $code)
+Otp::identifier($identifier)->attempt($code);
 ```
 
 - `$code`: The otp code to compare against.
