@@ -35,6 +35,13 @@ interface OtpBrokerInterface
     const OTP_MISMATCHED = 'otp.mismatched';
 
     /**
+     * Constant representing a matched code.
+     *
+     * @var string
+     */
+    const OTP_MATCHED = 'otp.matched';
+
+    /**
      * Set Otp identifier
      *
      * @param string $identifier
@@ -62,7 +69,15 @@ interface OtpBrokerInterface
     public function update();
 
     /**
-     * Attempt OTP code
+     * check Otp code without clearing
+     *
+     * @param string $code
+     * @return array
+     */
+    public function check($code);
+
+    /**
+     * Attempt OTP code and clear
      *
      * @param string $code
      * @return array
