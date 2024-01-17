@@ -72,7 +72,29 @@ class OtpBroker implements OtpBrokerInterface
     }
 
     /**
-     * Attempt Otp code
+     * check Otp code without clearing
+     *
+     * @param string $code
+     * @return array
+     */
+    public function check($code)
+    {
+        // Otp exists?
+        if (!$data = $this->store->retrieve())
+            return ['status' => static::OTP_EMPTY];
+
+        // Is the code correct?
+        else if ($data['code'] != $code)
+            return ['status' => static::OTP_MISMATCHED];
+
+        return [
+            'status' => static::OTP_MATCHED,
+        ];
+
+    }
+
+    /**
+     * Attempt Otp code and clear
      *
      * @param string $code
      * @return array
