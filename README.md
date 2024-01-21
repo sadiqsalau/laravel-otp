@@ -258,7 +258,7 @@ use SadiqSalau\LaravelOtp\Facades\Otp;
 Otp::identifier($identifier)->send(...);
 Otp::identifier($identifier)->attempt(...);
 Otp::identifier($identifier)->update();
-Otp::identifier($identifier)->check();
+Otp::identifier($identifier)->check(...);
 ```
 
 ## Config
