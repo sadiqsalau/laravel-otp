@@ -38,6 +38,13 @@ class Otp extends Facade
     const OTP_EMPTY = 'otp.empty';
 
     /**
+     * Constant representing a matched code.
+     *
+     * @var string
+     */
+    const OTP_MATCHED = 'otp.matched';
+    
+    /**
      * Constant representing a mismatched code.
      *
      * @var string
