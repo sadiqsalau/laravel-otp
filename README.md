@@ -312,6 +312,8 @@ return __($otp['status'])
 
 - `Otp::attempt(string $code)` - Attempt OTP code, returns the result of calling the `process` method of the OTP
 
+- `Otp::check(string $code)` - Compares the code against current OTP, this doesn't process or clear the OTP
+
 - `Otp::update()` - Resend and update current OTP
 
 - `Otp::clear()` - Remove OTP
