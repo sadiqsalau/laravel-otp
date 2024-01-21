@@ -291,6 +291,7 @@ return [
 
     'sent'          => 'We have sent your OTP code!',
     'empty'         => 'No OTP!',
+    'matched'       => 'OTP code verified!',
     'mismatched'    => 'Mismatched OTP code!',
     'processed'     => 'OTP was successfully processed!'
 ];
