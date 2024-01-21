@@ -182,6 +182,25 @@ Route::post('/otp/verify', function (Request $request) {
 });
 ```
 
+### Verify OTP without clearing from cache
+
+```php
+<?php
+use SadiqSalau\LaravelOtp\Facades\Otp;
+
+Otp::identifier($identifier)->check($code);
+```
+
+- `$code`: The otp code to compare against.
+
+Returns
+
+```php
+['status' => Otp::OTP_EMPTY]        // Error: otp.empty
+['status' => Otp::OTP_MISMATCHED]  // Error: otp.mismatched
+['status' => Otp::OTP_MATCHED] // Success: otp.matched
+```
+
 ### Resend OTP
 
 ```php
@@ -239,6 +258,7 @@ use SadiqSalau\LaravelOtp\Facades\Otp;
 Otp::identifier($identifier)->send(...);
 Otp::identifier($identifier)->attempt(...);
 Otp::identifier($identifier)->update();
+Otp::identifier($identifier)->check();
 ```
 
 ## Config
