@@ -39,7 +39,8 @@ class OtpNotification extends Notification
     {
         return (new MailMessage)
             ->subject('OTP Verification Code')
-            ->line('Hi, your OTP code is: ' . $this->data['code'])
+            ->line('Your OTP verification code is: ' . $this->data['code'])
+            ->line('Code expires at ' . $this->data['expires'])
             ->line('Thank you for using our application!');
     }
 
