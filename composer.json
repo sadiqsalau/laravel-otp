@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "laravel/framework": "^9|^10",
+    "laravel/framework": "^9|^10|^11",
     "hi-folks/rando-php": "^0.2.0"
   },
   "extra": {
