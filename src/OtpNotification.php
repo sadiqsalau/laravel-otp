@@ -38,8 +38,8 @@ class OtpNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('OTP Code')
-            ->line('Your OTP code is: ' . $this->data['code'])
+            ->subject('OTP Verification Code')
+            ->line('Hi, your OTP code is: ' . $this->data['code'])
             ->line('Thank you for using our application!');
     }
 
