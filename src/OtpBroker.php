@@ -47,7 +47,7 @@ class OtpBroker implements OtpBrokerInterface
 
         // Send notification
         $notifiable->notify(
-            new $notification($data['code'])
+            new $notification($data)
         );
 
         // Store otp
@@ -90,7 +90,6 @@ class OtpBroker implements OtpBrokerInterface
         return [
             'status' => static::OTP_MATCHED,
         ];
-
     }
 
     /**
